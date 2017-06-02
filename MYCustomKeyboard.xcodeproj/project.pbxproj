@@ -20,6 +20,39 @@
 		BE658C091EDD4E6D003C636C /* MYCustomKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE658C041EDD4E6D003C636C /* MYCustomKeyboard.xib */; };
 		BE658C0A1EDD4E6D003C636C /* MYStockKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE658C061EDD4E6D003C636C /* MYStockKeyboardView.m */; };
 		BE658C0B1EDD4E6D003C636C /* MYKeyboard.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE658C071EDD4E6D003C636C /* MYKeyboard.xcassets */; };
+		BED91BFA1EE14EB10061D9F1 /* 45.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BF91EE14EB10061D9F1 /* 45.png */; };
+		BED91C1C1EE156EB0061D9F1 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFC1EE156EB0061D9F1 /* 1.png */; };
+		BED91C1D1EE156EB0061D9F1 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFD1EE156EB0061D9F1 /* 2.png */; };
+		BED91C1E1EE156EB0061D9F1 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFE1EE156EB0061D9F1 /* 3.png */; };
+		BED91C1F1EE156EB0061D9F1 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFF1EE156EB0061D9F1 /* 4.png */; };
+		BED91C201EE156EB0061D9F1 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C001EE156EB0061D9F1 /* 5.png */; };
+		BED91C211EE156EB0061D9F1 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C011EE156EB0061D9F1 /* 6.png */; };
+		BED91C221EE156EB0061D9F1 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C021EE156EB0061D9F1 /* 7.png */; };
+		BED91C231EE156EB0061D9F1 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C031EE156EB0061D9F1 /* 8.png */; };
+		BED91C241EE156EB0061D9F1 /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C041EE156EB0061D9F1 /* 9.png */; };
+		BED91C251EE156EB0061D9F1 /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C051EE156EB0061D9F1 /* 10.png */; };
+		BED91C261EE156EB0061D9F1 /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C061EE156EB0061D9F1 /* 11.png */; };
+		BED91C271EE156EB0061D9F1 /* 12.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C071EE156EB0061D9F1 /* 12.png */; };
+		BED91C281EE156EB0061D9F1 /* 13.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C081EE156EB0061D9F1 /* 13.png */; };
+		BED91C291EE156EB0061D9F1 /* 14.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C091EE156EB0061D9F1 /* 14.png */; };
+		BED91C2A1EE156EB0061D9F1 /* 15.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0A1EE156EB0061D9F1 /* 15.png */; };
+		BED91C2B1EE156EB0061D9F1 /* 16.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0B1EE156EB0061D9F1 /* 16.png */; };
+		BED91C2C1EE156EB0061D9F1 /* 17.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0C1EE156EB0061D9F1 /* 17.png */; };
+		BED91C2D1EE156EB0061D9F1 /* 18.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0D1EE156EB0061D9F1 /* 18.png */; };
+		BED91C2E1EE156EB0061D9F1 /* 19.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0E1EE156EB0061D9F1 /* 19.png */; };
+		BED91C2F1EE156EB0061D9F1 /* 20.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C0F1EE156EB0061D9F1 /* 20.png */; };
+		BED91C301EE156EB0061D9F1 /* 21.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C101EE156EB0061D9F1 /* 21.png */; };
+		BED91C311EE156EB0061D9F1 /* 22.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C111EE156EB0061D9F1 /* 22.png */; };
+		BED91C321EE156EB0061D9F1 /* 23.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C121EE156EB0061D9F1 /* 23.png */; };
+		BED91C331EE156EB0061D9F1 /* 24.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C131EE156EB0061D9F1 /* 24.png */; };
+		BED91C341EE156EB0061D9F1 /* 25.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C141EE156EB0061D9F1 /* 25.png */; };
+		BED91C351EE156EB0061D9F1 /* 26.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C151EE156EB0061D9F1 /* 26.png */; };
+		BED91C361EE156EB0061D9F1 /* 27.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C161EE156EB0061D9F1 /* 27.png */; };
+		BED91C371EE156EB0061D9F1 /* 28.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C171EE156EB0061D9F1 /* 28.png */; };
+		BED91C381EE156EB0061D9F1 /* 29.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C181EE156EB0061D9F1 /* 29.png */; };
+		BED91C391EE156EB0061D9F1 /* 30.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C191EE156EB0061D9F1 /* 30.png */; };
+		BED91C3A1EE156EB0061D9F1 /* 31.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C1A1EE156EB0061D9F1 /* 31.png */; };
+		BED91C3B1EE156EB0061D9F1 /* 32.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C1B1EE156EB0061D9F1 /* 32.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +71,19 @@
 			remoteInfo = MYCustomKeyboard;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BED91BF81EE136220061D9F1 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BE658BC51EDD4BE0003C636C /* MYCustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MYCustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +110,42 @@
 		BE658C051EDD4E6D003C636C /* MYStockKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYStockKeyboardView.h; sourceTree = "<group>"; };
 		BE658C061EDD4E6D003C636C /* MYStockKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYStockKeyboardView.m; sourceTree = "<group>"; };
 		BE658C071EDD4E6D003C636C /* MYKeyboard.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MYKeyboard.xcassets; sourceTree = "<group>"; };
+		BED91BEE1EE136220061D9F1 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		BED91BEF1EE136220061D9F1 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		BED91BF11EE136220061D9F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BED91BF91EE14EB10061D9F1 /* 45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 45.png; sourceTree = "<group>"; };
+		BED91BFC1EE156EB0061D9F1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		BED91BFD1EE156EB0061D9F1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		BED91BFE1EE156EB0061D9F1 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		BED91BFF1EE156EB0061D9F1 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		BED91C001EE156EB0061D9F1 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		BED91C011EE156EB0061D9F1 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
+		BED91C021EE156EB0061D9F1 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		BED91C031EE156EB0061D9F1 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
+		BED91C041EE156EB0061D9F1 /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
+		BED91C051EE156EB0061D9F1 /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
+		BED91C061EE156EB0061D9F1 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
+		BED91C071EE156EB0061D9F1 /* 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12.png; sourceTree = "<group>"; };
+		BED91C081EE156EB0061D9F1 /* 13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 13.png; sourceTree = "<group>"; };
+		BED91C091EE156EB0061D9F1 /* 14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 14.png; sourceTree = "<group>"; };
+		BED91C0A1EE156EB0061D9F1 /* 15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 15.png; sourceTree = "<group>"; };
+		BED91C0B1EE156EB0061D9F1 /* 16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 16.png; sourceTree = "<group>"; };
+		BED91C0C1EE156EB0061D9F1 /* 17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 17.png; sourceTree = "<group>"; };
+		BED91C0D1EE156EB0061D9F1 /* 18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 18.png; sourceTree = "<group>"; };
+		BED91C0E1EE156EB0061D9F1 /* 19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 19.png; sourceTree = "<group>"; };
+		BED91C0F1EE156EB0061D9F1 /* 20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 20.png; sourceTree = "<group>"; };
+		BED91C101EE156EB0061D9F1 /* 21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 21.png; sourceTree = "<group>"; };
+		BED91C111EE156EB0061D9F1 /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
+		BED91C121EE156EB0061D9F1 /* 23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 23.png; sourceTree = "<group>"; };
+		BED91C131EE156EB0061D9F1 /* 24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 24.png; sourceTree = "<group>"; };
+		BED91C141EE156EB0061D9F1 /* 25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 25.png; sourceTree = "<group>"; };
+		BED91C151EE156EB0061D9F1 /* 26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 26.png; sourceTree = "<group>"; };
+		BED91C161EE156EB0061D9F1 /* 27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 27.png; sourceTree = "<group>"; };
+		BED91C171EE156EB0061D9F1 /* 28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 28.png; sourceTree = "<group>"; };
+		BED91C181EE156EB0061D9F1 /* 29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 29.png; sourceTree = "<group>"; };
+		BED91C191EE156EB0061D9F1 /* 30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 30.png; sourceTree = "<group>"; };
+		BED91C1A1EE156EB0061D9F1 /* 31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 31.png; sourceTree = "<group>"; };
+		BED91C1B1EE156EB0061D9F1 /* 32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +179,7 @@
 				BE658BC71EDD4BE0003C636C /* MYCustomKeyboard */,
 				BE658BE11EDD4BE0003C636C /* MYCustomKeyboardTests */,
 				BE658BEC1EDD4BE0003C636C /* MYCustomKeyboardUITests */,
+				BED91BED1EE136220061D9F1 /* MYEmojist */,
 				BE658BC61EDD4BE0003C636C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,6 +201,39 @@
 				BE658BFC1EDD4C9E003C636C /* View */,
 				BE658BFB1EDD4C98003C636C /* Model */,
 				BE658BFE1EDD4CBA003C636C /* Category */,
+				BED91BF91EE14EB10061D9F1 /* 45.png */,
+				BED91BFC1EE156EB0061D9F1 /* 1.png */,
+				BED91BFD1EE156EB0061D9F1 /* 2.png */,
+				BED91BFE1EE156EB0061D9F1 /* 3.png */,
+				BED91BFF1EE156EB0061D9F1 /* 4.png */,
+				BED91C001EE156EB0061D9F1 /* 5.png */,
+				BED91C011EE156EB0061D9F1 /* 6.png */,
+				BED91C021EE156EB0061D9F1 /* 7.png */,
+				BED91C031EE156EB0061D9F1 /* 8.png */,
+				BED91C041EE156EB0061D9F1 /* 9.png */,
+				BED91C051EE156EB0061D9F1 /* 10.png */,
+				BED91C061EE156EB0061D9F1 /* 11.png */,
+				BED91C071EE156EB0061D9F1 /* 12.png */,
+				BED91C081EE156EB0061D9F1 /* 13.png */,
+				BED91C091EE156EB0061D9F1 /* 14.png */,
+				BED91C0A1EE156EB0061D9F1 /* 15.png */,
+				BED91C0B1EE156EB0061D9F1 /* 16.png */,
+				BED91C0C1EE156EB0061D9F1 /* 17.png */,
+				BED91C0D1EE156EB0061D9F1 /* 18.png */,
+				BED91C0E1EE156EB0061D9F1 /* 19.png */,
+				BED91C0F1EE156EB0061D9F1 /* 20.png */,
+				BED91C101EE156EB0061D9F1 /* 21.png */,
+				BED91C111EE156EB0061D9F1 /* 22.png */,
+				BED91C121EE156EB0061D9F1 /* 23.png */,
+				BED91C131EE156EB0061D9F1 /* 24.png */,
+				BED91C141EE156EB0061D9F1 /* 25.png */,
+				BED91C151EE156EB0061D9F1 /* 26.png */,
+				BED91C161EE156EB0061D9F1 /* 27.png */,
+				BED91C171EE156EB0061D9F1 /* 28.png */,
+				BED91C181EE156EB0061D9F1 /* 29.png */,
+				BED91C191EE156EB0061D9F1 /* 30.png */,
+				BED91C1A1EE156EB0061D9F1 /* 31.png */,
+				BED91C1B1EE156EB0061D9F1 /* 32.png */,
 				BE658BCB1EDD4BE0003C636C /* AppDelegate.h */,
 				BE658BCC1EDD4BE0003C636C /* AppDelegate.m */,
 				BE658BD11EDD4BE0003C636C /* Main.storyboard */,
@@ -193,6 +309,16 @@
 			name = Category;
 			sourceTree = "<group>";
 		};
+		BED91BED1EE136220061D9F1 /* MYEmojist */ = {
+			isa = PBXGroup;
+			children = (
+				BED91BEE1EE136220061D9F1 /* KeyboardViewController.h */,
+				BED91BEF1EE136220061D9F1 /* KeyboardViewController.m */,
+				BED91BF11EE136220061D9F1 /* Info.plist */,
+			);
+			path = MYEmojist;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -203,6 +329,7 @@
 				BE658BC11EDD4BE0003C636C /* Sources */,
 				BE658BC21EDD4BE0003C636C /* Frameworks */,
 				BE658BC31EDD4BE0003C636C /* Resources */,
+				BED91BF81EE136220061D9F1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -302,11 +429,44 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED91C341EE156EB0061D9F1 /* 25.png in Resources */,
+				BED91C351EE156EB0061D9F1 /* 26.png in Resources */,
+				BED91C2A1EE156EB0061D9F1 /* 15.png in Resources */,
+				BED91C311EE156EB0061D9F1 /* 22.png in Resources */,
+				BED91C391EE156EB0061D9F1 /* 30.png in Resources */,
+				BED91C201EE156EB0061D9F1 /* 5.png in Resources */,
+				BED91C221EE156EB0061D9F1 /* 7.png in Resources */,
+				BED91BFA1EE14EB10061D9F1 /* 45.png in Resources */,
+				BED91C331EE156EB0061D9F1 /* 24.png in Resources */,
+				BED91C241EE156EB0061D9F1 /* 9.png in Resources */,
+				BED91C2C1EE156EB0061D9F1 /* 17.png in Resources */,
 				BE658BD81EDD4BE0003C636C /* LaunchScreen.storyboard in Resources */,
+				BED91C1D1EE156EB0061D9F1 /* 2.png in Resources */,
+				BED91C1E1EE156EB0061D9F1 /* 3.png in Resources */,
+				BED91C261EE156EB0061D9F1 /* 11.png in Resources */,
+				BED91C361EE156EB0061D9F1 /* 27.png in Resources */,
+				BED91C381EE156EB0061D9F1 /* 29.png in Resources */,
+				BED91C2E1EE156EB0061D9F1 /* 19.png in Resources */,
+				BED91C231EE156EB0061D9F1 /* 8.png in Resources */,
+				BED91C371EE156EB0061D9F1 /* 28.png in Resources */,
+				BED91C281EE156EB0061D9F1 /* 13.png in Resources */,
+				BED91C2F1EE156EB0061D9F1 /* 20.png in Resources */,
+				BED91C291EE156EB0061D9F1 /* 14.png in Resources */,
 				BE658BD51EDD4BE0003C636C /* Assets.xcassets in Resources */,
+				BED91C211EE156EB0061D9F1 /* 6.png in Resources */,
+				BED91C301EE156EB0061D9F1 /* 21.png in Resources */,
+				BED91C251EE156EB0061D9F1 /* 10.png in Resources */,
+				BED91C3A1EE156EB0061D9F1 /* 31.png in Resources */,
+				BED91C3B1EE156EB0061D9F1 /* 32.png in Resources */,
+				BED91C271EE156EB0061D9F1 /* 12.png in Resources */,
 				BE658BD31EDD4BE0003C636C /* Main.storyboard in Resources */,
+				BED91C2D1EE156EB0061D9F1 /* 18.png in Resources */,
+				BED91C321EE156EB0061D9F1 /* 23.png in Resources */,
 				BE658C091EDD4E6D003C636C /* MYCustomKeyboard.xib in Resources */,
+				BED91C2B1EE156EB0061D9F1 /* 16.png in Resources */,
 				BE658C0B1EDD4E6D003C636C /* MYKeyboard.xcassets in Resources */,
+				BED91C1F1EE156EB0061D9F1 /* 4.png in Resources */,
+				BED91C1C1EE156EB0061D9F1 /* 1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

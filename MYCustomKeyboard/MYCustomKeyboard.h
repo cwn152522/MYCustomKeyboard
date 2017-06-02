@@ -13,13 +13,15 @@
 
 typedef NS_ENUM(NSUInteger, KeyboardType){
     KeyboardType123,//股票数字键盘
-    KeyboardTypeABC//首字母键盘
+    KeyboardTypeABC,//首字母键盘
+    KeyboardTypeEmoji//表情键盘
 };
 
 @protocol MYCustomKeyboardDelegate <NSObject>
 
 - (void)onClickKeyboardButtonTypeInputString:(UIButton *)inputStringBtn;//点击会输入字符串的按钮
 - (void)onClickKeyboardButtonTypeCommand:(UIButton *)commandBtn;//点击会执行指定命令的按钮
+- (void)onClickKeyboardButtonTypeInputEmoj:(UIButton *)emojBtn;//点击表情按钮
 
 @end
 
@@ -50,5 +52,15 @@ typedef NS_ENUM(NSUInteger, KeyboardType){
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *firstCharacterBtns;//首字母按钮，如A、B、C等
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *commandBtns;//命令按钮，如中文，空格，搜索等
+
+@end
+
+
+//-----------------------------------MYCustomKeyboardEmoji---------------------------------------
+
+@interface MYCustomKeyboardEmoji : MYCustomKeyboard//表情键盘
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *emojiButns;
+
 
 @end

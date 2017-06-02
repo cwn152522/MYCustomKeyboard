@@ -21,7 +21,9 @@
             return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] firstObject];
             break;
         case KeyboardTypeABC:
-            return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] lastObject];
+            return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] objectAtIndex:1];
+        case KeyboardTypeEmoji:
+            return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] objectAtIndex:2];
         default:
             break;
     }
@@ -119,4 +121,23 @@
     }
 }
 
+@end
+
+
+//-----------------------------------MYCustomKeyboardEmoji---------------------------------------
+
+@implementation MYCustomKeyboardEmoji
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    [self.emojiButns enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld", obj.tag]] forState:UIControlStateNormal];
+    }];
+}
+
+- (IBAction)onClickEmojButtons:(UIButton *)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onClickKeyboardButtonTypeInputEmoj:)]){
+        [self.delegate onClickKeyboardButtonTypeInputEmoj:sender];
+    }
+}
 @end

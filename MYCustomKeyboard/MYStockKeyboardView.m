@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UIButton *numberBtn;//数字123按钮
 @property (strong, nonatomic) UIButton *firstCharacterBtn;//首字母按钮
 @property (strong, nonatomic) UIButton *chineseBtn;//中文按钮
+@property (strong, nonatomic) UIButton *emojiBtn;//表情按钮
 @property (strong, nonatomic) UIButton *downBtn;//关闭键盘按钮
 
 @property (strong, nonatomic) NSArray <UIButton *> *leftBtns;//以上三个按钮，关闭键盘按钮除外
@@ -30,8 +31,9 @@
         [self addSubview:self.firstCharacterBtn];
         [self addSubview:self.chineseBtn];
         [self addSubview:self.downBtn];
+        [self addSubview:self.emojiBtn];
         
-        self.leftBtns = @[self.numberBtn, self.firstCharacterBtn, self.chineseBtn];
+        self.leftBtns = @[self.numberBtn, self.firstCharacterBtn, self.chineseBtn, self.emojiBtn];
         self.selectIndex = 1;
         
         __weak typeof(self) weakSelf = self;
@@ -46,6 +48,10 @@
         
         [self.chineseBtn cwn_makeConstraints:^(UIView *maker) {
             maker.leftTo(weakSelf.firstCharacterBtn, 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
+        }];
+        
+        [self.emojiBtn cwn_makeConstraints:^(UIView *maker) {
+            maker.leftTo(weakSelf.chineseBtn, 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
         }];
         
         [self.downBtn cwn_makeConstraints:^(UIView *maker) {
@@ -68,7 +74,7 @@
             maker.bottomToSuper(0).leftToSuper(0).rightToSuper(0).height(1.0 / [UIScreen mainScreen].scale);
         }];
         
-        for(int i = 0; i < 3; i ++){
+        for(int i = 0; i < 4; i ++){
             UIView *line = [[UIView alloc] init];
             line.backgroundColor = HexColor(0xaaaaaa);
             [self addSubview:line];
@@ -93,6 +99,11 @@
                         }];
                     }
                         break;
+                    case 3:{
+                        [line cwn_makeConstraints:^(UIView *maker) {
+                            maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.emojiBtn, 1, 0).width(1.0 / [UIScreen mainScreen].scale);
+                        }];
+                    }
                     default:
                         break;
                 }
@@ -195,11 +206,24 @@
     return _chineseBtn;
 }
 
+- (UIButton *)emojiBtn{
+    if(!_emojiBtn){
+        _emojiBtn = [[UIButton alloc] init];
+        [_emojiBtn setTitle:@"表情" forState:UIControlStateNormal];
+        [_emojiBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_emojiBtn setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
+        [_emojiBtn setAccessibilityIdentifier:@"3"];
+        [_emojiBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_emojiBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    return _emojiBtn;
+}
+
 - (UIButton *)downBtn{
     if(!_downBtn){
         _downBtn = [[UIButton alloc] init];
         [_downBtn setImage:[UIImage imageNamed:@"keyboard_down"] forState:UIControlStateNormal];
-        [_downBtn setAccessibilityIdentifier:@"3"];
+        [_downBtn setAccessibilityIdentifier:@"10"];
         [_downBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
         [_downBtn addTarget:self action:@selector(preventFlicker:) forControlEvents:UIControlEventAllEvents];
     }
@@ -243,7 +267,10 @@
                 case 2://中文
                     [weakSelf changeKeyBoardTo:2];
                     break;
-                case 3://关闭键盘
+                case 3://中文
+                    [weakSelf changeKeyBoardTo:3];
+                    break;
+                case 10://关闭键盘
                     [weakSelf.textField resignFirstResponder];
                     break;
                 default:
@@ -303,14 +330,26 @@
         [self addSubview:view1];
         view1.hidden = NO;
         
+        MYCustomKeyboard *view2 = [MYCustomKeyboard customKeyBoardWithType:KeyboardTypeEmoji];
+        view2.delegate = self;
+        frame = view2.frame;
+        frame.origin.y = 44;
+        view2.frame = frame;
+        [self addSubview:view2];
+        view2.hidden = YES;
+        
         [self.customKeyBoards addObject:view];
         [self.customKeyBoards addObject:view1];
+        [self.customKeyBoards addObject:view2];
     }
 }
 
 #pragma mark 键盘切换
 
-- (void)changeKeyBoardTo:(NSInteger)index{//0数字，1首字母，2中文
+- (void)changeKeyBoardTo:(NSInteger)index{//0数字，1首字母，2中文，3表情
+    self.customKeyBoards[0].hidden = YES;
+    self.customKeyBoards[1].hidden = YES;
+    self.customKeyBoards[2].hidden = YES;
     switch (index) {
         case 0:
             self.textField.inputView = self;
@@ -319,7 +358,6 @@
             [self addSubview:self.toolBar];
             self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
             self.customKeyBoards[0].hidden = NO;
-            self.customKeyBoards[1].hidden = YES;
             [self.textField becomeFirstResponder];
             break;
         case 1:
@@ -328,7 +366,6 @@
             [self.toolBar removeFromSuperview];
             [self addSubview:self.toolBar];
             self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
-            self.customKeyBoards[0].hidden = YES;
             self.customKeyBoards[1].hidden = NO;
             [self.textField becomeFirstResponder];
             break;
@@ -343,8 +380,16 @@
             [self.toolBar removeFromSuperview];
             [self.controller.view addSubview:self.toolBar];
             self.toolBar.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
-            self.customKeyBoards[0].hidden = YES;
-            self.customKeyBoards[1].hidden = YES;
+            [self.textField becomeFirstResponder];
+        }
+            break;
+        case 3:{
+            self.textField.inputView = self;
+            [self.textField resignFirstResponder];
+            [self.toolBar removeFromSuperview];
+            [self addSubview:self.toolBar];
+            self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
+            self.customKeyBoards[2].hidden = NO;
             [self.textField becomeFirstResponder];
         }
             break;
@@ -386,6 +431,46 @@
     }else if([command length] == 0){
         self.textField.text = [self.textField.text stringByAppendingString:@" "];
     }
+}
+
+- (void)onClickKeyboardButtonTypeInputEmoj:(UIButton *)emojBtn{
+//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.textField.text];
+//
+//        
+//        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init] ;
+//        textAttachment.image = [UIImage imageNamed:@"45.png"]; //要添加的图片
+//        textAttachment.bounds = CGRectMake(0, 0, 20, 20);
+//        NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+//    
+//        [str insertAttributedString:textAttachmentString atIndex:str.length];
+//        
+//        [self.textField setAttributedText:str];
+    
+    
+//        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 375, 21)];
+//        [lable setTextAlignment:NSTextAlignmentCenter];
+//        lable.textColor = [UIColor redColor];
+//        [self.textField.superview addSubview:lable];
+    
+        UITextView *lable = [[UITextView alloc] initWithFrame:CGRectMake(0, 100, 375, 41)];
+        lable.textColor = [UIColor redColor];
+        [lable setTextAlignment:NSTextAlignmentCenter];
+    
+        [self.textField.superview addSubview:lable];
+    
+        //富文本
+        NSString *message = @"我是哈哈哈哈哈哈~";
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:message attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
+        
+        NSTextAttachment *attachment = [[NSTextAttachment alloc]initWithData:nil ofType:nil];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.png", emojBtn.tag]];
+        attachment.image = image;
+        attachment.bounds = CGRectMake(0, 0, 20, 20);
+        
+        NSAttributedString *text = [NSAttributedString attributedStringWithAttachment:attachment];
+        [str insertAttributedString:text atIndex:5];
+        
+        lable.attributedText = str;
 }
 
 #pragma mark 通知监听
