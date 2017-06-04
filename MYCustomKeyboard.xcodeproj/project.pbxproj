@@ -20,7 +20,6 @@
 		BE658C091EDD4E6D003C636C /* MYCustomKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE658C041EDD4E6D003C636C /* MYCustomKeyboard.xib */; };
 		BE658C0A1EDD4E6D003C636C /* MYStockKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BE658C061EDD4E6D003C636C /* MYStockKeyboardView.m */; };
 		BE658C0B1EDD4E6D003C636C /* MYKeyboard.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE658C071EDD4E6D003C636C /* MYKeyboard.xcassets */; };
-		BED91BFA1EE14EB10061D9F1 /* 45.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BF91EE14EB10061D9F1 /* 45.png */; };
 		BED91C1C1EE156EB0061D9F1 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFC1EE156EB0061D9F1 /* 1.png */; };
 		BED91C1D1EE156EB0061D9F1 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFD1EE156EB0061D9F1 /* 2.png */; };
 		BED91C1E1EE156EB0061D9F1 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91BFE1EE156EB0061D9F1 /* 3.png */; };
@@ -53,6 +52,8 @@
 		BED91C391EE156EB0061D9F1 /* 30.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C191EE156EB0061D9F1 /* 30.png */; };
 		BED91C3A1EE156EB0061D9F1 /* 31.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C1A1EE156EB0061D9F1 /* 31.png */; };
 		BED91C3B1EE156EB0061D9F1 /* 32.png in Resources */ = {isa = PBXBuildFile; fileRef = BED91C1B1EE156EB0061D9F1 /* 32.png */; };
+		D67376F91EE4A3F900572E7A /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = D67376F81EE4A3F900572E7A /* Emoji.plist */; };
+		D67376FC1EE4AEB400572E7A /* MYEmojiTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = D67376FB1EE4AEB400572E7A /* MYEmojiTextAttachment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +114,6 @@
 		BED91BEE1EE136220061D9F1 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		BED91BEF1EE136220061D9F1 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		BED91BF11EE136220061D9F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BED91BF91EE14EB10061D9F1 /* 45.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 45.png; sourceTree = "<group>"; };
 		BED91BFC1EE156EB0061D9F1 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		BED91BFD1EE156EB0061D9F1 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		BED91BFE1EE156EB0061D9F1 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
@@ -146,6 +146,9 @@
 		BED91C191EE156EB0061D9F1 /* 30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 30.png; sourceTree = "<group>"; };
 		BED91C1A1EE156EB0061D9F1 /* 31.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 31.png; sourceTree = "<group>"; };
 		BED91C1B1EE156EB0061D9F1 /* 32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 32.png; sourceTree = "<group>"; };
+		D67376F81EE4A3F900572E7A /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
+		D67376FA1EE4AEB400572E7A /* MYEmojiTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYEmojiTextAttachment.h; sourceTree = "<group>"; };
+		D67376FB1EE4AEB400572E7A /* MYEmojiTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYEmojiTextAttachment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +204,6 @@
 				BE658BFC1EDD4C9E003C636C /* View */,
 				BE658BFB1EDD4C98003C636C /* Model */,
 				BE658BFE1EDD4CBA003C636C /* Category */,
-				BED91BF91EE14EB10061D9F1 /* 45.png */,
 				BED91BFC1EE156EB0061D9F1 /* 1.png */,
 				BED91BFD1EE156EB0061D9F1 /* 2.png */,
 				BED91BFE1EE156EB0061D9F1 /* 3.png */,
@@ -234,6 +236,7 @@
 				BED91C191EE156EB0061D9F1 /* 30.png */,
 				BED91C1A1EE156EB0061D9F1 /* 31.png */,
 				BED91C1B1EE156EB0061D9F1 /* 32.png */,
+				D67376F81EE4A3F900572E7A /* Emoji.plist */,
 				BE658BCB1EDD4BE0003C636C /* AppDelegate.h */,
 				BE658BCC1EDD4BE0003C636C /* AppDelegate.m */,
 				BE658BD11EDD4BE0003C636C /* Main.storyboard */,
@@ -274,6 +277,8 @@
 		BE658BFB1EDD4C98003C636C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D67376FA1EE4AEB400572E7A /* MYEmojiTextAttachment.h */,
+				D67376FB1EE4AEB400572E7A /* MYEmojiTextAttachment.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -436,7 +441,6 @@
 				BED91C391EE156EB0061D9F1 /* 30.png in Resources */,
 				BED91C201EE156EB0061D9F1 /* 5.png in Resources */,
 				BED91C221EE156EB0061D9F1 /* 7.png in Resources */,
-				BED91BFA1EE14EB10061D9F1 /* 45.png in Resources */,
 				BED91C331EE156EB0061D9F1 /* 24.png in Resources */,
 				BED91C241EE156EB0061D9F1 /* 9.png in Resources */,
 				BED91C2C1EE156EB0061D9F1 /* 17.png in Resources */,
@@ -456,6 +460,7 @@
 				BED91C211EE156EB0061D9F1 /* 6.png in Resources */,
 				BED91C301EE156EB0061D9F1 /* 21.png in Resources */,
 				BED91C251EE156EB0061D9F1 /* 10.png in Resources */,
+				D67376F91EE4A3F900572E7A /* Emoji.plist in Resources */,
 				BED91C3A1EE156EB0061D9F1 /* 31.png in Resources */,
 				BED91C3B1EE156EB0061D9F1 /* 32.png in Resources */,
 				BED91C271EE156EB0061D9F1 /* 12.png in Resources */,
@@ -497,6 +502,7 @@
 				BE658C011EDD4D16003C636C /* UIView+CWNView.m in Sources */,
 				BE658BCA1EDD4BE0003C636C /* main.m in Sources */,
 				BE658C081EDD4E6D003C636C /* MYCustomKeyboard.m in Sources */,
+				D67376FC1EE4AEB400572E7A /* MYEmojiTextAttachment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -154,8 +154,11 @@
     [super awakeFromNib];
     self.type = KeyboardTypeEmoji;
     
+    NSArray *emojis = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Emoji" ofType:@"plist"]];
+    
     [self.emojiButns enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld", obj.tag]] forState:UIControlStateNormal];
+        [obj setTitle:emojis[obj.tag - 1][@"name"] forState:UIControlStateNormal];
     }];
 }
 

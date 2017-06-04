@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,27 +23,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入股票代码或名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kXR-hJ-TZW">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入股票代码或名称或聊天消息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kXR-hJ-TZW">
                                 <rect key="frame" x="16" y="20" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.79537461840000001" green="0.81117968399999996" blue="0.83637331010000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCA-pM-ATT">
+                                <rect key="frame" x="16" y="150" width="343" height="497"/>
+                                <color key="backgroundColor" red="0.88235294119999996" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhQ-95-GEV">
+                                <rect key="frame" x="109.5" y="84" width="31" height="30"/>
+                                <state key="normal" title="发送"/>
+                                <connections>
+                                    <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cs5-be-TKk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xo0-q1-JQB">
+                                <rect key="frame" x="164.5" y="84" width="92" height="30"/>
+                                <state key="normal" title="查看消息格式"/>
+                                <connections>
+                                    <action selector="getMessageFormat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qyr-ca-aFg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="tCA-pM-ATT" secondAttribute="bottom" constant="20" id="4Q7-Gp-1jb"/>
+                            <constraint firstItem="Xo0-q1-JQB" firstAttribute="centerY" secondItem="MhQ-95-GEV" secondAttribute="centerY" id="Bq0-B9-RKR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kXR-hJ-TZW" secondAttribute="trailing" id="CUO-hB-ymS"/>
+                            <constraint firstItem="Xo0-q1-JQB" firstAttribute="leading" secondItem="MhQ-95-GEV" secondAttribute="trailing" constant="24" id="Ftt-Wg-r4Z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tCA-pM-ATT" secondAttribute="trailing" id="LBV-sP-iJ7"/>
                             <constraint firstItem="kXR-hJ-TZW" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="TrM-j6-gPm"/>
+                            <constraint firstItem="MhQ-95-GEV" firstAttribute="top" secondItem="kXR-hJ-TZW" secondAttribute="bottom" constant="34" id="Ykx-sZ-wNO"/>
+                            <constraint firstItem="MhQ-95-GEV" firstAttribute="centerX" secondItem="kXR-hJ-TZW" secondAttribute="centerX" multiplier="1:1.5" id="bM1-7G-n3K"/>
+                            <constraint firstItem="tCA-pM-ATT" firstAttribute="top" secondItem="kXR-hJ-TZW" secondAttribute="bottom" constant="100" id="cji-IH-4NR"/>
                             <constraint firstItem="kXR-hJ-TZW" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gMV-wp-SOT"/>
+                            <constraint firstItem="tCA-pM-ATT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="ogP-aM-Ghb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="textField" destination="kXR-hJ-TZW" id="VJR-1c-E8E"/>
+                        <outlet property="textView" destination="tCA-pM-ATT" id="gS4-T7-HPl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="36" y="47.226386806596707"/>
         </scene>
     </scenes>
 </document>
