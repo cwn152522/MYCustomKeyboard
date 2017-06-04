@@ -11,15 +11,33 @@
 #define HexColor(hexValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16)) / 255.0 green:((float)((hexValue & 0xFF00) >> 8)) / 255.0 blue:((float)(hexValue & 0xFF)) / 255.0 alpha:1.0]
 #define RGBColor(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
+@implementation UITextField (getSelectRange)
+
+- (NSRange)selectRange{
+    UITextPosition *beginingPosition = self.beginningOfDocument;
+    UITextRange *selectRange = self.selectedTextRange;
+    UITextPosition *selectStartPosition = selectRange.start;
+    UITextPosition *selectEndPosition = selectRange.end;
+    NSRange range = NSMakeRange([self offsetFromPosition:beginingPosition toPosition:selectStartPosition], [self offsetFromPosition:selectStartPosition toPosition:selectEndPosition]);
+    return range;
+}
+
+- (void)setSelectRange:(NSRange)selectRange{
+    UITextPosition *beginingPosition = self.beginningOfDocument;
+    UITextPosition *selectStartPosition = [self positionFromPosition:beginingPosition offset:selectRange.location];
+    UITextPosition *selectEndPosition = [self positionFromPosition:beginingPosition offset:selectRange.location + selectRange.length];
+    self.selectedTextRange = [self textRangeFromPosition:selectStartPosition toPosition:selectEndPosition];
+}
+
+@end
+
+
 @interface  MYKeyboardToolBar()
 
-@property (strong, nonatomic) UIButton *numberBtn;//数字123按钮
-@property (strong, nonatomic) UIButton *firstCharacterBtn;//首字母按钮
-@property (strong, nonatomic) UIButton *chineseBtn;//中文按钮
-@property (strong, nonatomic) UIButton *emojiBtn;//表情按钮
-@property (strong, nonatomic) UIButton *downBtn;//关闭键盘按钮
+@property (assign, nonatomic) NSInteger numberOfItems;
 
-@property (strong, nonatomic) NSArray <UIButton *> *leftBtns;//以上三个按钮，关闭键盘按钮除外
+@property (strong, nonatomic) UIButton *downBtn;//关闭键盘按钮
+@property (strong, nonatomic) NSMutableArray <UIButton *> *leftBtns;//键盘按钮除外
 
 @end
 
@@ -27,35 +45,43 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
-        [self addSubview:self.numberBtn];
-        [self addSubview:self.firstCharacterBtn];
-        [self addSubview:self.chineseBtn];
+        self.leftBtns = [NSMutableArray array];
+        
         [self addSubview:self.downBtn];
-        [self addSubview:self.emojiBtn];
-        
-        self.leftBtns = @[self.numberBtn, self.firstCharacterBtn, self.chineseBtn, self.emojiBtn];
-        self.selectIndex = 1;
-        
-        __weak typeof(self) weakSelf = self;
-        
-        [self.numberBtn cwn_makeConstraints:^(UIView *maker) {
-            maker.leftToSuper(0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
-        }];
-        
-        [self.firstCharacterBtn cwn_makeConstraints:^(UIView *maker) {
-            maker.leftTo(weakSelf.numberBtn, 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
-        }];
-        
-        [self.chineseBtn cwn_makeConstraints:^(UIView *maker) {
-            maker.leftTo(weakSelf.firstCharacterBtn, 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
-        }];
-        
-        [self.emojiBtn cwn_makeConstraints:^(UIView *maker) {
-            maker.leftTo(weakSelf.chineseBtn, 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
-        }];
         
         [self.downBtn cwn_makeConstraints:^(UIView *maker) {
             maker.rightToSuper(0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
+        }];
+    }
+    return self;
+}
+
+- (void)setItemTitles:(NSArray<NSString *> *)itemTitles{
+    _numberOfItems = [itemTitles count];
+    
+    __weak typeof(self) weakSelf = self;
+    if([_leftBtns count] == 0){
+       
+        for (int i = 0; i < _numberOfItems; i ++) {
+            UIButton *button = [[UIButton alloc] init];
+            [button setTitle:itemTitles[i] forState:UIControlStateNormal];
+            [button.titleLabel setFont:[UIFont systemFontOfSize:15]];
+            [button setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
+            [button setAccessibilityIdentifier:[NSString stringWithFormat:@"%d", i]];
+            [button addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self addSubview:button];
+            [self.leftBtns addObject:button];
+        }
+        
+        [self.leftBtns enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj cwn_makeConstraints:^(UIView *maker) {
+                if(idx == 0){
+                    maker.leftToSuper(0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
+                }else{
+                    maker.leftTo(weakSelf.leftBtns[idx - 1], 1, 0).topToSuper(0).bottomToSuper(0).width(ShiPei(75));
+                }
+            }];
         }];
         
         
@@ -74,43 +100,16 @@
             maker.bottomToSuper(0).leftToSuper(0).rightToSuper(0).height(1.0 / [UIScreen mainScreen].scale);
         }];
         
-        for(int i = 0; i < 4; i ++){
+        for(int i = 0; i < _numberOfItems; i ++){
             UIView *line = [[UIView alloc] init];
             line.backgroundColor = HexColor(0xaaaaaa);
             [self addSubview:line];
             
             [line cwn_makeConstraints:^(UIView *maker) {
-                switch (i) {
-                    case 0:{
-                        [line cwn_makeConstraints:^(UIView *maker) {
-                            maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.numberBtn, 1, 0).width(1.0 / [UIScreen mainScreen].scale);
-                        }];
-                    }
-                        break;
-                    case 1:{
-                        [line cwn_makeConstraints:^(UIView *maker) {
-                            maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.firstCharacterBtn, 1, 0).width(1.0 / [UIScreen mainScreen].scale);
-                        }];
-                    }
-                        break;
-                    case 2:{
-                        [line cwn_makeConstraints:^(UIView *maker) {
-                            maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.chineseBtn, 1, 0).width(1.0 / [UIScreen mainScreen].scale);
-                        }];
-                    }
-                        break;
-                    case 3:{
-                        [line cwn_makeConstraints:^(UIView *maker) {
-                            maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.emojiBtn, 1, 0).width(1.0 / [UIScreen mainScreen].scale);
-                        }];
-                    }
-                    default:
-                        break;
-                }
+                maker.topToSuper(0).bottomToSuper(0).leftTo(weakSelf.leftBtns[i], 1, 0).width(1.0 / [UIScreen mainScreen].scale);
             }];
         }
     }
-    return self;
 }
 
 #pragma mark 事件处理
@@ -119,6 +118,7 @@
     if(self.selectIndex == [sender.accessibilityIdentifier integerValue])
         return;
     
+    if([sender.accessibilityIdentifier integerValue] != 10)
     [self.leftBtns enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj setSelected:NO];
         if(obj == sender){
@@ -135,15 +135,13 @@
 }
 
 - (void)setSelectIndex:(NSInteger)selectIndex{
-    switch (selectIndex) {
-        case 0:
-        case 1:
-        case 2:
-            [self onClickButton:_leftBtns[selectIndex]];
-            break;
-            
-        default:
-            break;
+    [_leftBtns enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj setSelected:NO];
+    }];
+    
+    if(_selectIndex != 10 && [_leftBtns count] > selectIndex){
+        _selectIndex =selectIndex;
+        [_leftBtns[selectIndex] setSelected:YES];
     }
 }
 
@@ -167,58 +165,6 @@
 
 #pragma mark 控件get方法
 
-- (UIButton *)numberBtn{
-    if(!_numberBtn){
-        _numberBtn = [[UIButton alloc] init];
-        [_numberBtn setTitle:@"123" forState:UIControlStateNormal];
-        [_numberBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_numberBtn setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
-        [_numberBtn setAccessibilityIdentifier:@"0"];
-        [_numberBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_numberBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-    return _numberBtn;
-}
-
-- (UIButton *)firstCharacterBtn{
-    if(!_firstCharacterBtn){
-        _firstCharacterBtn = [[UIButton alloc] init];
-        [_firstCharacterBtn setTitle:@"首字母" forState:UIControlStateNormal];
-        [_firstCharacterBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_firstCharacterBtn setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
-        [_firstCharacterBtn setAccessibilityIdentifier:@"1"];
-        [_firstCharacterBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_firstCharacterBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-    return _firstCharacterBtn;
-}
-
-- (UIButton *)chineseBtn{
-    if(!_chineseBtn){
-        _chineseBtn = [[UIButton alloc] init];
-        [_chineseBtn setTitle:@"中文" forState:UIControlStateNormal];
-        [_chineseBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_chineseBtn setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
-        [_chineseBtn setAccessibilityIdentifier:@"2"];
-        [_chineseBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_chineseBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-    return _chineseBtn;
-}
-
-- (UIButton *)emojiBtn{
-    if(!_emojiBtn){
-        _emojiBtn = [[UIButton alloc] init];
-        [_emojiBtn setTitle:@"表情" forState:UIControlStateNormal];
-        [_emojiBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_emojiBtn setBackgroundImage:[self changeColorToImage:HexColor(0xCCD0D7)] forState:UIControlStateSelected];
-        [_emojiBtn setAccessibilityIdentifier:@"3"];
-        [_emojiBtn addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_emojiBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-    return _emojiBtn;
-}
-
 - (UIButton *)downBtn{
     if(!_downBtn){
         _downBtn = [[UIButton alloc] init];
@@ -238,6 +184,11 @@
 @property (weak, nonatomic) UITextField *textField;
 @property (weak, nonatomic) UIViewController *controller;
 
+@property (assign, nonatomic) BOOL needToolBar;
+
+@property (assign, nonatomic) NSInteger numberOfKeyboards;
+@property (strong, nonatomic) NSMutableArray <MYCustomKeyboard *> *customKeyBoards;//自定义键盘，高度为基于iphone6进行适配的246高度
+
 @end
 
 @implementation MYStockKeyboardView
@@ -252,28 +203,20 @@
         self.backgroundColor = [UIColor groupTableViewBackgroundColor];
         __weak typeof(self) weakSelf = self;
         
+        _toolBar = [[MYKeyboardToolBar alloc] init];
+        _toolBar.backgroundColor = RGBColor(232, 235, 240, 1);
         [self addSubview:self.toolBar];
         
         self.toolBar.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
         
         self.toolBar.toolBarBtnClickBlock = ^(NSInteger index){//toolbar按钮点击事件
+            KeyboardType type = [weakSelf.datasource customKeyboardAtIndex:index];
             switch (index) {
-                case 0://数字123
-                    [weakSelf changeKeyBoardTo:0];
-                    break;
-                case 1://首字母
-                    [weakSelf changeKeyBoardTo:1];
-                    break;
-                case 2://中文
-                    [weakSelf changeKeyBoardTo:2];
-                    break;
-                case 3://中文
-                    [weakSelf changeKeyBoardTo:3];
-                    break;
                 case 10://关闭键盘
                     [weakSelf.textField resignFirstResponder];
                     break;
                 default:
+                    [weakSelf changeKeyBoardTo:type];
                     break;
             }
         };
@@ -281,10 +224,20 @@
     return self;
 }
 
-- (void)combinedTextField:(UITextField *)textField inController:(UIViewController *)controller{
+- (void)combinedTextField:(UITextField *)textField inController:(UIViewController *)controller withToolBarItems:(NSArray<NSString *> *)items{
     self.textField = textField;
     self.controller = controller;
+    self.needToolBar = [items count] == 0 ? NO : YES;
+    self.toolBar.itemTitles = items;
     textField.inputView = self;
+    
+    if(self.needToolBar == NO){
+        [self.toolBar removeFromSuperview];
+        self.toolBar = nil;
+        CGRect frame = self.frame;
+        frame.size.height -= 44;
+        self.frame = frame;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
      
@@ -311,166 +264,163 @@
      
                                                  name:UIApplicationWillEnterForegroundNotification object:nil];
     
+}
+
+- (void)setDatasource:(id<MYStockKeyboardViewDatasource>)datasource{
+    _datasource = datasource;
+    _numberOfKeyboards = [_datasource numberOfCustomKeyboards];
+    
     if([_customKeyBoards count] == 0){
         _customKeyBoards = [NSMutableArray array];
-    
-        MYCustomKeyboard *view = [MYCustomKeyboard customKeyBoardWithType:KeyboardType123];
-        view.delegate = self;
-        CGRect frame = view.frame;
-        frame.origin.y = 44 - 1.0 / [UIScreen mainScreen].scale;
-        view.frame = frame;
-        [self addSubview:view];
-        view.hidden = YES;
         
-        MYCustomKeyboard *view1 = [MYCustomKeyboard customKeyBoardWithType:KeyboardTypeABC];
-        view1.delegate = self;
-        frame = view1.frame;
-        frame.origin.y = 44;
-        view1.frame = frame;
-        [self addSubview:view1];
-        view1.hidden = NO;
-        
-        MYCustomKeyboard *view2 = [MYCustomKeyboard customKeyBoardWithType:KeyboardTypeEmoji];
-        view2.delegate = self;
-        frame = view2.frame;
-        frame.origin.y = 44;
-        view2.frame = frame;
-        [self addSubview:view2];
-        view2.hidden = YES;
-        
-        [self.customKeyBoards addObject:view];
-        [self.customKeyBoards addObject:view1];
-        [self.customKeyBoards addObject:view2];
+        for (int i = 0; i < _numberOfKeyboards; i ++) {
+            KeyboardType type = [_datasource customKeyboardAtIndex:i];
+            if(type == KeyboardTypeUnKnow)
+                return;
+            
+            MYCustomKeyboard *view = [MYCustomKeyboard customKeyBoardWithType:type];
+            view.delegate = self;
+            CGRect frame = view.frame;
+            if(type == KeyboardType123){
+                frame.origin.y = self.needToolBar == YES ? (44 - 1.0 / [UIScreen mainScreen].scale) : 0;
+            }else{
+                frame.origin.y = self.needToolBar == YES ? 44 : 0;
+            }
+                view.frame = frame;
+                [self addSubview:view];
+                view.hidden = i == 0 ? NO : YES;
+             [self.customKeyBoards addObject:view];
+        }
     }
 }
 
 #pragma mark 键盘切换
 
-- (void)changeKeyBoardTo:(NSInteger)index{//0数字，1首字母，2中文，3表情
-    self.customKeyBoards[0].hidden = YES;
-    self.customKeyBoards[1].hidden = YES;
-    self.customKeyBoards[2].hidden = YES;
-    switch (index) {
-        case 0:
-            self.textField.inputView = self;
-            [self.textField resignFirstResponder];
-            [self.toolBar removeFromSuperview];
-            [self addSubview:self.toolBar];
-            self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
-            self.customKeyBoards[0].hidden = NO;
-            [self.textField becomeFirstResponder];
-            break;
-        case 1:
-            self.textField.inputView = self;
-            [self.textField resignFirstResponder];
-            [self.toolBar removeFromSuperview];
-            [self addSubview:self.toolBar];
-            self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
-            self.customKeyBoards[1].hidden = NO;
-            [self.textField becomeFirstResponder];
-            break;
-        case 2:{
-            self.textField.inputView = nil;
-            
+- (void)changeKeyBoardTo:(KeyboardType)type{
+     __block NSInteger index = 0;
+    [self.customKeyBoards enumerateObjectsUsingBlock:^(MYCustomKeyboard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(obj.type == type)
+            index = idx;
+    }];
+    
+    if(index != self.toolBar.selectIndex)
+        self.toolBar.selectIndex = index;
+    
+    [self.customKeyBoards enumerateObjectsUsingBlock:^(MYCustomKeyboard * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            obj.hidden = YES;
+    }];
+    
+    if(type == KeyboardTypeChinese){//中文键盘
+        self.textField.inputView = nil;
+        
+        if(self.textField.isFirstResponder == YES){//当前键盘已显示
+            UITextRange *range = self.textField.selectedTextRange;
             [CATransaction begin];//事务，执行指定coreAnimation动画时取消动画时间
             [CATransaction setDisableActions:YES];
-                [self.textField resignFirstResponder];
+            [self.textField resignFirstResponder];
             [CATransaction commit];
             
             [self.toolBar removeFromSuperview];
             [self.controller.view addSubview:self.toolBar];
             self.toolBar.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
             [self.textField becomeFirstResponder];
+            self.textField.selectedTextRange = range;
+        }else{//当前键盘未显示
+            [self.toolBar removeFromSuperview];
+            [self.controller.view addSubview:self.toolBar];
+            self.toolBar.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
         }
-            break;
-        case 3:{
-            self.textField.inputView = self;
+    }else{//其它键盘
+        self.textField.inputView = self;
+         if(self.textField.isFirstResponder == YES){//当前键盘已显示
+             UITextRange *range = self.textField.selectedTextRange;
             [self.textField resignFirstResponder];
             [self.toolBar removeFromSuperview];
             [self addSubview:self.toolBar];
             self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
-            self.customKeyBoards[2].hidden = NO;
+            self.customKeyBoards[index].hidden = NO;
             [self.textField becomeFirstResponder];
-        }
-            break;
-        default:
-            break;
+              self.textField.selectedTextRange = range;
+         }else{//当前键盘未显示
+             [self.toolBar removeFromSuperview];
+             [self addSubview:self.toolBar];
+             self.toolBar.frame =CGRectMake(0, 0, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
+             self.customKeyBoards[index].hidden = NO;
+         }
     }
 }
 
 #pragma mark MYCustomKeyboardDelegate
 
 - (void)onClickKeyboardButtonTypeInputString:(UIButton *)inputStringBtn{//点击字符串输入按钮
-    self.textField.text = [self.textField.text stringByAppendingString:inputStringBtn.titleLabel.text];
-    if(self.customKeyboardChangedTextFieldBlock){
-        self.customKeyboardChangedTextFieldBlock();
+    NSRange range = _textField.selectRange;
+     self.textField.text = [self.textField.text stringByReplacingCharactersInRange:range withString:inputStringBtn.titleLabel.text];//替换选中字符串或在光标处插入字符串
+    self.textField.selectRange = NSMakeRange(range.location + inputStringBtn.titleLabel.text.length, 0);
+
+    if([self.delegate respondsToSelector:@selector(customKeyboardChangedTextFieldDidChanged:)]){
+        [self.delegate customKeyboardChangedTextFieldDidChanged:self.textField];
     }
 }
 
 - (void)onClickKeyboardButtonTypeCommand:(UIButton *)commandBtn{
     NSString *command = commandBtn.titleLabel.text;//获取命令
     if([command isEqualToString:@"删除"]){
-        if([self.textField.text length] > 0)
-            self.textField.text = [self.textField.text substringToIndex:[self.textField.text length] - 1];
-        if(self.customKeyboardChangedTextFieldBlock){
-            self.customKeyboardChangedTextFieldBlock();
+        if([self.textField.text length] > 0){
+            BOOL shouldDelete = YES;
+            NSRange range = _textField.selectRange;
+            if(range.length > 0){//当前选择了部分文本
+                NSRange shouldDeleteRange = range;
+                if([self.delegate respondsToSelector:@selector(customKeyboardWillDeleteCharacters:atRange:)]){
+                   shouldDelete = [self.delegate customKeyboardWillDeleteCharacters:[self.textField.text substringWithRange:shouldDeleteRange] atRange:shouldDeleteRange];
+                }
+                if(shouldDelete == YES){
+                    self.textField.text = [self.textField.text stringByReplacingCharactersInRange:shouldDeleteRange withString:@""];
+                    [self.textField setSelectRange:NSMakeRange(range.location, 0)];
+                }
+            }
+            else{//当前未选择文本
+                NSRange shouldDeleteRange = NSMakeRange(range.location - 1, 1);
+                if([self.delegate respondsToSelector:@selector(customKeyboardWillDeleteCharacters:atRange:)]){
+                   shouldDelete = [self.delegate customKeyboardWillDeleteCharacters:[self.textField.text substringWithRange:shouldDeleteRange] atRange:shouldDeleteRange];
+                }
+                if(shouldDelete == YES){
+                    self.textField.text = [self.textField.text stringByReplacingCharactersInRange:shouldDeleteRange withString:@""];
+                    [_textField setSelectRange:NSMakeRange(range.location - 1, 0)];
+                }
+            }
+        
+            
+            if([self.delegate respondsToSelector:@selector(customKeyboardChangedTextFieldDidChanged:)]){
+                [self.delegate customKeyboardChangedTextFieldDidChanged:self.textField];
+            }
+        }else{
+            return;
         }
     }else if([command isEqualToString:@"清空"]){
             self.textField.text = @"";
-        if(self.customKeyboardChangedTextFieldBlock){
-            self.customKeyboardChangedTextFieldBlock();
+        if([self.delegate respondsToSelector:@selector(customKeyboardChangedTextFieldDidChanged:)]){
+            [self.delegate customKeyboardChangedTextFieldDidChanged:self.textField];
         }
     }else if([command isEqualToString:@"ABC"]){
-        [self.toolBar setSelectIndex:1];
+        [self.toolBar setSelectIndex:KeyboardTypeABC];
+        [self changeKeyBoardTo:KeyboardTypeABC];
     }else if([command isEqualToString:@"中文"]){
-        [self.toolBar setSelectIndex:2];
+        [self.toolBar setSelectIndex:KeyboardTypeChinese];
+        [self changeKeyBoardTo:KeyboardTypeChinese];
     }else if([command isEqualToString:@"搜索"]){
         [self.textField resignFirstResponder];
     }else if([command isEqualToString:@"123"]){
-        [self.toolBar setSelectIndex:0];
+        [self.toolBar setSelectIndex:KeyboardType123];
+        [self changeKeyBoardTo:KeyboardType123];
     }else if([command length] == 0){
         self.textField.text = [self.textField.text stringByAppendingString:@" "];
     }
 }
 
 - (void)onClickKeyboardButtonTypeInputEmoj:(UIButton *)emojBtn{
-//        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:self.textField.text];
-//
-//        
-//        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init] ;
-//        textAttachment.image = [UIImage imageNamed:@"45.png"]; //要添加的图片
-//        textAttachment.bounds = CGRectMake(0, 0, 20, 20);
-//        NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-//    
-//        [str insertAttributedString:textAttachmentString atIndex:str.length];
-//        
-//        [self.textField setAttributedText:str];
+
     
-    
-//        UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 100, 375, 21)];
-//        [lable setTextAlignment:NSTextAlignmentCenter];
-//        lable.textColor = [UIColor redColor];
-//        [self.textField.superview addSubview:lable];
-    
-        UITextView *lable = [[UITextView alloc] initWithFrame:CGRectMake(0, 100, 375, 41)];
-        lable.textColor = [UIColor redColor];
-        [lable setTextAlignment:NSTextAlignmentCenter];
-    
-        [self.textField.superview addSubview:lable];
-    
-        //富文本
-        NSString *message = @"我是哈哈哈哈哈哈~";
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:message attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]}];
-        
-        NSTextAttachment *attachment = [[NSTextAttachment alloc]initWithData:nil ofType:nil];
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%ld.png", emojBtn.tag]];
-        attachment.image = image;
-        attachment.bounds = CGRectMake(0, 0, 20, 20);
-        
-        NSAttributedString *text = [NSAttributedString attributedStringWithAttachment:attachment];
-        [str insertAttributedString:text atIndex:5];
-        
-        lable.attributedText = str;
+    self.textField.text = [self.textField.text stringByAppendingString:emojBtn.titleLabel.text];
 }
 
 #pragma mark 通知监听
@@ -497,24 +447,15 @@
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationTime];
     [UIView setAnimationCurve:animationCurve];
-    if(self.toolBar.selectIndex == 2){
+    
+    KeyboardType type = [[self.customKeyBoards objectAtIndex:self.toolBar.selectIndex] type];
+    if(type == KeyboardTypeChinese){
         self.toolBar.frame = CGRectMake(0, keyboardFrameNew.origin.y - 44 + 1.0 / [UIScreen mainScreen].scale, [UIScreen mainScreen].bounds.size.width, 44);
     }
     [UIView commitAnimations];
     
-    switch (self.toolBar.selectIndex) {
-        case 0:
-            [self.toolBar.numberBtn setSelected:YES];
-            break;
-        case 1:
-            [self.toolBar.firstCharacterBtn setSelected:YES];
-            break;
-        case 2:
-            [self.toolBar.chineseBtn setSelected:YES];
-            break;
-        default:
-            break;
-    }
+    [self.toolBar setSelectIndex:self.toolBar.selectIndex];
+
 }
 
 -(void)keyboardWillBeHidden:(NSNotification*)aNotification{
@@ -534,7 +475,8 @@
     [UIView setAnimationCurve:animationCurve];
     [UIView setAnimationDidStopSelector:@selector(keyboardDidHidden)];
     
-    if(self.toolBar.selectIndex == 2){
+    KeyboardType type = [[self.customKeyBoards objectAtIndex:self.toolBar.selectIndex] type];
+    if(type == KeyboardTypeChinese){
         self.toolBar.frame =CGRectMake(0, [UIScreen mainScreen].bounds.size.height, self.toolBar.frame.size.width, self.toolBar.frame.size.height);
     }
     
@@ -563,19 +505,4 @@
         [CATransaction commit];
     }
 }
-
-#pragma mark 控件get方法
-
-- (MYKeyboardToolBar *)toolBar{
-    if(!_toolBar){
-        _toolBar = [[MYKeyboardToolBar alloc] init];
-        _toolBar.backgroundColor = RGBColor(232, 235, 240, 1);
-//        _toolBar.layer.shadowColor = GLOBAL_TABLSECTION_LINECOLOR.CGColor;
-//        _toolBar.layer.shadowRadius = 1.0 / [UIScreen mainScreen].scale *0.5;
-//        _toolBar.layer.shadowOffset = CGSizeMake(0, 1.0 / [UIScreen mainScreen].scale *0.5);
-//        _toolBar.layer.shadowOpacity = 1;
-    }
-    return _toolBar;
-}
-
 @end

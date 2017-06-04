@@ -17,13 +17,18 @@
 + (instancetype)customKeyBoardWithType:(KeyboardType)type{
     MYCustomKeyboard *view;
     switch (type) {
+        case KeyboardTypeChinese:
+            return [[MYCustomKeyboardChinese alloc] init];
+            break;
         case KeyboardType123:
             return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] firstObject];
             break;
         case KeyboardTypeABC:
             return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] objectAtIndex:1];
+            break;
         case KeyboardTypeEmoji:
             return [[[NSBundle mainBundle] loadNibNamed:@"MYCustomKeyboard" owner:nil options:nil] objectAtIndex:2];
+            break;
         default:
             break;
     }
@@ -40,12 +45,27 @@
 @end
 
 
+//-------------------------------------------MYCustomKeyboardChinese-------------------------------------------
+
+@implementation MYCustomKeyboardChinese
+
+- (instancetype)init{
+    if(self = [super init]){
+        self.type = KeyboardTypeChinese;
+    }
+    return self;
+}
+
+@end
+
 //-------------------------------------------MYCustomKeyboard123-------------------------------------------
 
 @implementation MYCustomKeyboard123
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    self.type = KeyboardType123;
+    
     [self cwn_makeShiPeis:^(UIView *maker) {
         maker.shiPeiSubViews();
     }];
@@ -83,6 +103,8 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    self.type = KeyboardTypeABC;
+    
     [self cwn_makeShiPeis:^(UIView *maker) {
         maker.shiPeiSubViews();
     }];
@@ -130,6 +152,8 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
+    self.type = KeyboardTypeEmoji;
+    
     [self.emojiButns enumerateObjectsUsingBlock:^(UIButton *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%ld", obj.tag]] forState:UIControlStateNormal];
     }];
@@ -138,6 +162,12 @@
 - (IBAction)onClickEmojButtons:(UIButton *)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(onClickKeyboardButtonTypeInputEmoj:)]){
         [self.delegate onClickKeyboardButtonTypeInputEmoj:sender];
+    }
+}
+
+- (IBAction)onClickCommandButtons:(UIButton *)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onClickKeyboardButtonTypeCommand:)]){
+        [self.delegate onClickKeyboardButtonTypeCommand:sender];
     }
 }
 @end

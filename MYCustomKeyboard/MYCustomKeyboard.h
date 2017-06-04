@@ -12,6 +12,8 @@
 #define HexColor(hexValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16)) / 255.0 green:((float)((hexValue & 0xFF00) >> 8)) / 255.0 blue:((float)(hexValue & 0xFF)) / 255.0 alpha:1.0]
 
 typedef NS_ENUM(NSUInteger, KeyboardType){
+    KeyboardTypeUnKnow,//未知
+    KeyboardTypeChinese,//中文键盘
     KeyboardType123,//股票数字键盘
     KeyboardTypeABC,//首字母键盘
     KeyboardTypeEmoji//表情键盘
@@ -31,7 +33,16 @@ typedef NS_ENUM(NSUInteger, KeyboardType){
 
 @property (assign, nonatomic) id <MYCustomKeyboardDelegate> delegate;
 
+@property (assign, nonatomic) KeyboardType type;
+
 + (instancetype)customKeyBoardWithType:(KeyboardType)type;
+
+@end
+
+
+//-------------------------------------------MYCustomKeyboardChinese-------------------------------------------
+
+@interface MYCustomKeyboardChinese : MYCustomKeyboard//中文键盘
 
 @end
 
@@ -61,6 +72,6 @@ typedef NS_ENUM(NSUInteger, KeyboardType){
 @interface MYCustomKeyboardEmoji : MYCustomKeyboard//表情键盘
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *emojiButns;
-
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *commandBtns;//命令按钮，如中文，空格，搜索等
 
 @end
