@@ -23,7 +23,6 @@ typedef NS_ENUM(NSUInteger, KeyboardType){
 
 - (void)onClickKeyboardButtonTypeInputString:(UIButton *)inputStringBtn;//点击会输入字符串的按钮
 - (void)onClickKeyboardButtonTypeCommand:(UIButton *)commandBtn;//点击会执行指定命令的按钮
-- (void)onClickKeyboardButtonTypeInputEmoj:(UIButton *)emojBtn;//点击表情按钮
 
 @end
 

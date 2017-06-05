@@ -163,8 +163,8 @@
 }
 
 - (IBAction)onClickEmojButtons:(UIButton *)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(onClickKeyboardButtonTypeInputEmoj:)]){
-        [self.delegate onClickKeyboardButtonTypeInputEmoj:sender];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(onClickKeyboardButtonTypeInputString:)]){
+        [self.delegate onClickKeyboardButtonTypeInputString:sender];
     }
 }
 

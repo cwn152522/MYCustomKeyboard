@@ -417,12 +417,6 @@
     }
 }
 
-- (void)onClickKeyboardButtonTypeInputEmoj:(UIButton *)emojBtn{
-
-    
-    self.textField.text = [self.textField.text stringByAppendingString:emojBtn.titleLabel.text];
-}
-
 #pragma mark 通知监听
 
 - (void)keyboardWillShow:(NSNotification*)aNotification{
